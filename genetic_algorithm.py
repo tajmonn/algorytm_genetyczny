@@ -1,5 +1,5 @@
 from random import choice, uniform
-import numpy as np
+from numpy import mean
 
 
 # kodawanie binarne
@@ -26,7 +26,7 @@ def encode(x, binary_length):
     return encoded
 
 
-# dekodowanie logarytmiczne
+# dekodowanie binarne
 def decode(listed):
     sign = (-1) ** listed[0]  # znak liczby
     r = len(listed)  # długość listy
@@ -47,7 +47,6 @@ def initial_population(population_size, binary_length):
             choice([0, 1]) for _ in range(binary_length)
         ]  # losowy osobnik o długości binary_length
         population.append(individual)
-    population_decoded = [decode(x) for x in population]
     return population
 
 
@@ -67,7 +66,7 @@ def evaluate(population, function):
 def stop_condition(evaluated, stop_value, old_value):
     # sprawdzenie odległości skarnych wartości ocen osobników
     # zwrócenie True jeśli odległość jest mniejsza od stop_value, False jeśli nie
-    new_value = np.mean(evaluated)
+    new_value = mean(evaluated)
     if abs(new_value - old_value) <= stop_value:
         return True, new_value
 
